@@ -1,6 +1,7 @@
 package com;
 
 import com.repository.TestPostRepository;
+import com.service.TestFacadePostService;
 import com.service.TestPostService;
 
 import java.util.HashMap;
@@ -25,6 +26,10 @@ public class ApplicationContext {
         if (bean == null) {
             bean =
                     switch (beanName) {
+                        case "testFacadePostService" -> new TestFacadePostService(
+                                genBean("testPostService"),
+                                genBean("testPostRepository")
+                        );
                         case "testPostService" -> new TestPostService(
                                 genBean("testPostRepository")
                         );
