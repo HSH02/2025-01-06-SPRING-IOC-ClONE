@@ -1,14 +1,21 @@
 package util;
 
+import com.framework.annotations.Component;
 import com.framework.ioc.util.ClsUtil;
+import com.standard.util.Ut;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.reflections.Reflections;
 import util.sample.TestCar;
 import util.sample.TestPerson;
 
 import java.lang.reflect.Parameter;
+import java.util.LinkedHashMap;
+import java.util.Map;
+import org.reflections.scanners.*;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.reflections.scanners.Scanners.TypesAnnotated;
 
 public class ClsUtilTest {
 
@@ -124,5 +131,20 @@ public class ClsUtilTest {
         String[] parameterNames = ClsUtil.getParameterNames(TestPerson.class);
         assertThat(parameterNames[0]).isEqualTo("name");
         assertThat(parameterNames[1]).isEqualTo("age");
+    }
+
+    @Test
+    @DisplayName("reflections test")
+    void t13() {
+        Reflections reflections = new Reflections("com", Scanners.TypesAnnotated);
+
+        Map<String, Class<?>> clsMap = reflections.getTypesAnnotatedWith(Component.class)
+                .stream()
+                .filter(cls -> !cls.isAnnotation())  // 어노테이션 자체는 제외
+                .collect(LinkedHashMap::new,        // 새 LinkedhashMap 생성
+                        (map, cls) -> map.put(Ut.str.lcfirst(cls.getSimpleName()), cls), // 키-값 쌍 추가
+                        Map::putAll); // 맵 변환
+
+        System.out.println(clsMap);
     }
 }

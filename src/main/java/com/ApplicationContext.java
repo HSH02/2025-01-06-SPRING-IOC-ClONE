@@ -1,9 +1,6 @@
 package com;
 
 import com.framework.ioc.util.ClsUtil;
-import com.repository.TestPostRepository;
-import com.service.TestFacadePostService;
-import com.service.TestPostService;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -27,10 +24,10 @@ public class ApplicationContext {
 
         if (bean == null) {
             String clsPath = switch (beanName) {
-                case "testPostRepository" -> "com.repository.TestPostRepository";
-                case "testFacadePostService" -> "com.service.TestFacadePostService";
-                case "testPostService" -> "com.service.TestPostService";
-                default -> throw new RuntimeException("Invalid bean name: " + beanName);
+                case "testPostRepository" -> "domain.testPost.repository.TestPostRepository";
+                case "testFacadePostService" -> "domain.testPost.service.TestFacadePostService";
+                case "testPostService" -> "domain.testPost.service.TestPostService";
+                default -> null;
             };
 
             String[] parameterNames = ClsUtil.getParameterNames(clsPath);

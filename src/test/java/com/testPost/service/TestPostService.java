@@ -1,7 +1,7 @@
-package com.service;
+package com.testPost.service;
 
-import com.framework.annotations.Service.Service;
-import com.repository.TestPostRepository;
+import com.framework.annotations.Service;
+import com.testPost.repository.TestPostRepository;
 import lombok.RequiredArgsConstructor;
 
 @Service
