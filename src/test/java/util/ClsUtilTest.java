@@ -4,6 +4,7 @@ import com.framework.ioc.util.ClsUtil;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import util.sample.TestCar;
+import util.sample.TestPerson;
 
 import java.lang.reflect.Parameter;
 
@@ -115,5 +116,13 @@ public class ClsUtilTest {
         String[] parameterNames = ClsUtil.getParameterNames(TestCar.class, new Class[]{String.class, int.class});
         assertThat(parameterNames[0]).isEqualTo("name");
         assertThat(parameterNames[1]).isEqualTo("number");
+    }
+
+    @Test
+    @DisplayName("ClsUtil.getParameterNames with no args")
+    void t12() {
+        String[] parameterNames = ClsUtil.getParameterNames(TestPerson.class);
+        assertThat(parameterNames[0]).isEqualTo("name");
+        assertThat(parameterNames[1]).isEqualTo("age");
     }
 }
