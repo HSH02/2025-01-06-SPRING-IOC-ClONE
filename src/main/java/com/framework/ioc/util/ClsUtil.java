@@ -31,35 +31,33 @@ public class ClsUtil {
     }
 
     private static Class[] getTypes(Object[] args) {
+
+        if (args instanceof Class[]) {
+            return (Class[]) args;
+        }
+
         return Arrays.stream(args)
                 .map(e -> {
-                        if(e instanceof Boolean) {
-                            return boolean.class;
-                        }
-                        else if(e instanceof Byte){
-                            return byte.class;
-                        }
-                        else if(e instanceof Character){
-                            return char.class;
-                        }
-                        else if(e instanceof Short){
-                            return short.class;
-                        }
-                        else if(e instanceof Integer){
-                            return int.class;
-                        }
-                        else if(e instanceof Long){
-                            return long.class;
-                        }
-                        else if(e instanceof Float){
-                            return float.class;
-                        }
-                        else if(e instanceof Double){
-                            return double.class;
-                        }
+                    if (e instanceof Boolean) {
+                        return boolean.class;
+                    } else if (e instanceof Byte) {
+                        return byte.class;
+                    } else if (e instanceof Character) {
+                        return char.class;
+                    } else if (e instanceof Short) {
+                        return short.class;
+                    } else if (e instanceof Integer) {
+                        return int.class;
+                    } else if (e instanceof Long) {
+                        return long.class;
+                    } else if (e instanceof Float) {
+                        return float.class;
+                    } else if (e instanceof Double) {
+                        return double.class;
+                    }
 
-                        return e.getClass();
-                        })
+                    return e.getClass();
+                })
                 .toArray(Class[]::new);
     }
 
@@ -67,7 +65,7 @@ public class ClsUtil {
         return getParameters(loadClass(clsPath), args);
     }
 
-    public static <T> Parameter[]  getParameters(Class<T> cls, Object[] args) {
+    public static <T> Parameter[] getParameters(Class<T> cls, Object[] args) {
         Constructor<T> constructor = getConstructor(cls, args);
 
         return constructor.getParameters();
@@ -79,7 +77,7 @@ public class ClsUtil {
 
     public static <T> String[] getParameterNames(Class<T> cls, Object[] args) {
         return Arrays.stream(
-                    getParameters(cls, args)
+                        getParameters(cls, args)
                 )
                 .map(Parameter::getName)
                 .toArray(String[]::new);
