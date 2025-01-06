@@ -1,4 +1,5 @@
 import com.ApplicationContext;
+import com.repository.TestPostRepository;
 import com.service.TestPostService;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
@@ -49,6 +50,18 @@ public class ApplicationContextTest {
                 .genBean("testPostRepository");
 
         assertThat(testPostRepository).isNotNull();
+    }
+
+    @Test
+    @DisplayName("testPostService has testPostRepository")
+    public void t5() {
+        TestPostService testPostService = applicationContext
+                .genBean("testPostService");
+
+        assertThat(testPostService).hasFieldOrPropertyWithValue(
+                "testPostRepository",
+                applicationContext.genBean("testPostRepository")
+        );
     }
 
 }

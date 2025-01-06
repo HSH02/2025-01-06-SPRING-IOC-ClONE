@@ -1,12 +1,13 @@
 package com;
 
+import com.repository.TestPostRepository;
 import com.service.TestPostService;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public class ApplicationContext {
-    private Map<String,Object> beans;
+    private Map<String, Object> beans;
     private String basePackage;
 
     public ApplicationContext(String basePackage) {
@@ -14,18 +15,19 @@ public class ApplicationContext {
         this.beans = new HashMap<>();
     }
 
-    public void init(){
+    public void init() {
 
     }
 
     public <T> T genBean(String beanName) {
         Object bean = beans.get(beanName);
 
-        if(bean == null){
+        if (bean == null) {
             bean =
                     switch (beanName) {
-                case "testPostService" -> new TestPostService();
-                default -> null;
+                        case "testPostService" -> new TestPostService();
+                        case "testPostRepository" -> new TestPostRepository();
+                        default -> null;
                     };
 
             beans.put(beanName, bean);
