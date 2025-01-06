@@ -51,5 +51,11 @@ public class ClsUtilTest {
         assertThat(parameters[1].getType()).isEqualTo(int.class);
     }
 
-
+    @Test
+    @DisplayName("ClsUtil.getParameterNames with clsPath")
+    void t6() {
+        String[] parameterNames = ClsUtil.getParameterNames("util.sample.TestCar", new Object[]{"BMW", 1234});
+        assertThat(parameterNames[0]).isEqualTo("name");
+        assertThat(parameterNames[1]).isEqualTo("number");
+    }
 }
