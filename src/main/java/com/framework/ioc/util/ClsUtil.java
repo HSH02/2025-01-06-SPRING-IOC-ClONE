@@ -32,7 +32,7 @@ public class ClsUtil {
         return getParameters(loadClass(clsPath), args);
     }
 
-    public static <T> Parameter[] getParameters(Class<T> cls, Object[] args) {
+    public static <T> Parameter[]  getParameters(Class<T> cls, Object[] args) {
         Constructor<T> constructor = getConstructor(cls, args);
 
         return constructor.getParameters();
