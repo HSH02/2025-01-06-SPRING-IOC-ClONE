@@ -30,7 +30,7 @@ public class ClsUtilTest {
     @Test
     @DisplayName("ClsUtil.getParameters with clsPath")
     void t3() {
-        Parameter[] parameters = ClsUtil.getParameters(TestCar.class, new Object[]{"BMW", 1234});
+        Parameter[] parameters = ClsUtil.getParameters("util.sample.TestCar", new Object[]{"BMW", 1234});
 
         assertThat(parameters[0].getName()).isEqualTo("name");
         assertThat(parameters[0].getType()).isEqualTo(String.class);
