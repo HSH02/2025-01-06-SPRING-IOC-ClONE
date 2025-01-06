@@ -22,7 +22,7 @@ public class ClsUtilTest {
         TestCar testCar = ClsUtil.construct("util.sample.TestCar", new Object[]{"BMW", 1234});
 
         assertThat(testCar.getName()).isEqualTo("BMW");
-        assertThat(testCar.getNumber()).isEqualTo("1234");
+        assertThat(testCar.getNumber()).isEqualTo(1234);
     }
 
 
