@@ -1,5 +1,7 @@
 package com;
 
+import com.service.TestPostService;
+
 public class ApplicationContext {
     private String basePackage;
 
@@ -11,4 +13,11 @@ public class ApplicationContext {
 
     }
 
+    public <T> T genBean(String beanName) {
+        if (beanName.equals("testPostService")) {
+            return (T) new TestPostService();
+        }
+
+        return null;
+    }
 }
