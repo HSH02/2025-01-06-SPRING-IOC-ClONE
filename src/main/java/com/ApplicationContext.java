@@ -1,5 +1,6 @@
 package com;
 
+import com.framework.annotations.Component;
 import com.framework.ioc.util.ClsUtil;
 
 import java.util.Arrays;
@@ -9,6 +10,7 @@ import java.util.Map;
 public class ApplicationContext {
     private Map<String, Object> beans;
     private String basePackage;
+    private Map<String, Class<?>> beanClasses;
 
     public ApplicationContext(String basePackage) {
         this.basePackage = basePackage;
@@ -16,27 +18,22 @@ public class ApplicationContext {
     }
 
     public void init() {
-
+        this.beanClasses = ClsUtil.annotatedClasses(basePackage, Component.class);
     }
 
     public <T> T genBean(String beanName) {
         Object bean = beans.get(beanName);
 
         if (bean == null) {
-            String clsPath = switch (beanName) {
-                case "testPostRepository" -> "domain.testPost.repository.TestPostRepository";
-                case "testFacadePostService" -> "domain.testPost.service.TestFacadePostService";
-                case "testPostService" -> "domain.testPost.service.TestPostService";
-                default -> null;
-            };
+            Class<T> cls = (Class<T>) beanClasses.get(beanName);
 
-            String[] parameterNames = ClsUtil.getParameterNames(clsPath);
+            String[] parameterNames = ClsUtil.getParameterNames(cls);
 
             Object[] args = Arrays.stream(parameterNames)
                     .map(this::genBean)
                     .toArray();
 
-            bean = ClsUtil.construct(clsPath, args);
+            bean = ClsUtil.construct(cls, args);
 
             beans.put(beanName, bean);
         }
