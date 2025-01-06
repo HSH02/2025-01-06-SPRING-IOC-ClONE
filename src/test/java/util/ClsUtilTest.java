@@ -5,6 +5,8 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import util.sample.TestCar;
 
+import java.lang.reflect.Parameter;
+
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 public class ClsUtilTest {
@@ -23,6 +25,18 @@ public class ClsUtilTest {
 
         assertThat(testCar.getName()).isEqualTo("BMW");
         assertThat(testCar.getNumber()).isEqualTo(1234);
+    }
+
+    @Test
+    @DisplayName("ClsUtil.getParameters with clsPath")
+    void t3() {
+        Parameter[] parameters = ClsUtil.getParameters(TestCar.class, new Object[]{"BMW", 1234});
+
+        assertThat(parameters[0].getName()).isEqualTo("name");
+        assertThat(parameters[0].getType()).isEqualTo(String.class);
+
+        assertThat(parameters[1].getName()).isEqualTo("number");
+        assertThat(parameters[1].getType()).isEqualTo(int.class);
     }
 
 
